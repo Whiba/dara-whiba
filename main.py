@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 
 import nltk
+import re
 import pymorphy2
 from nltk import Counter
 
 morph = pymorphy2.MorphAnalyzer()
 
-text = u'Вася и Катя пошли гулять в парк. Там они встретили своих друзей Костю , Дениса и Марину . ' \
+text = u'Вася и Катя пошли гулять в парк. Там они встретили своих друзей Костю, Дениса и Марину. ' \
         u'Ребята играли в футбол. Вася и Катя поздоровались с друзьями и пошли на речку.';
 name_male = []
 name_female = []
 
 # cut text by tokens and find names and divide them by sex
+for i in [',', '.', ':', ';', '!', '?']:
+    text = text.replace(i, '')
 mylist = text.split();
+
 for word in mylist:
     # выбираем с наибольшим score - оценка вероятности что данный набор правильный
     # так как сортировка по убыванию score, мы берем самый вероятный
